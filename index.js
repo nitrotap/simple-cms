@@ -9,6 +9,7 @@ const mysql = require('mysql2');
 
 
 
+
 const menuQuestions = [
 	{
 		type: 'list',
@@ -23,8 +24,7 @@ async function getMenuOption() { // returns menu choice string
 	return response.menuChoice;
 }
 
-async function getDepartments() {
-	const fetch = require('node-fetch');
+function getDepartments() {
 
 	let url = '/api/dept';
 
