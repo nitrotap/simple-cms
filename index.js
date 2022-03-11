@@ -7,6 +7,7 @@ const { express, PORT, app } = require('./server');
 const cTable = require('console.table');
 const mysql = require('mysql2');
 const fetch = require('node-fetch');
+const site = 'http://localhost:3001';
 
 
 
@@ -17,7 +18,7 @@ const menuQuestions = [
 		type: 'list',
 		name: 'menuChoice',
 		message: 'Please choose an option to continue: (Required)',
-		choices: ['view all departments', 'view all roles', 'view all employees', 'add a department', 'add a role', 'add an employee', 'update an employee role', 'exit']
+		choices: ['view all departments', 'add a department', 'delete a department', 'view all roles', 'view all employees', 'add a role', 'add an employee', 'update an employee role', 'exit']
 	}
 ];
 
@@ -59,7 +60,7 @@ async function getMenuOption() { // returns menu choice string
 // }
 
 async function getDepartments() {
-	let url = 'http://localhost:3001/api/dept';
+	let url = site + '/api/dept';
 	let options = { method: 'GET' };
 	let b = await fetch(url, options)
 		.then(res => res.json());
@@ -85,14 +86,47 @@ async function addDepartment() {
 
 	console.log(deptName.name);
 
-	let url = 'http://localhost:3001/api/dept';
-	let options = { method: 'POST',
+	let url = site + '/api/dept';
+	let options = { 
+		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
-		}, body: JSON.stringify(deptName) };
+		}, 
+		body: JSON.stringify(deptName) 
+	};
 	let b = await fetch(url, options)
 		.then(res => res.json());
 	return b.data;
+}
+
+async function deleteDepartment() {
+	let departmentData = await getDepartments();
+	console.table(departmentData);
+	let dept = await inquirer.prompt([
+		{
+			type: 'input',
+			name: 'id',
+			message: 'Please enter the ID for the department to be deleted: (Required)',
+			validate: (userInput) => {
+				if (userInput) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+			
+		}
+	]);
+
+
+
+	let url = site + `/api/dept/${dept.id}`;
+	let options = {method: 'DELETE'};
+
+	await fetch(url, options)
+		.catch(err => console.error('error:' + err));
+	
+	console.log(`department ${dept.id} deleted!`);
 }
 
 
@@ -113,6 +147,14 @@ async function main() {
 			console.table(departmentData);
 			break;
 		}
+
+		case 'delete a department': {
+			let departmentData = await deleteDepartment();
+			console.table(departmentData);
+			break;
+		}
+
+
 	
 		case 'exit': {
 			exit = false;
