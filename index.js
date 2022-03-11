@@ -26,14 +26,6 @@ async function getMenuOption() { // returns menu choice string
 
 function getDepartments() {
 
-	let url = '/api/dept';
-
-	let options = {method: 'GET'};
-
-	fetch(url, options)
-		.then(res => res.json())
-		.then(json => console.log(json))
-		.catch(err => console.error('error:' + err));
 	
 }
 
