@@ -1,4 +1,7 @@
 .env
+scratch.js
+scratch.*
+
 # Logs
 logs
 *.log
