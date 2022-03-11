@@ -1,17 +1,17 @@
+require('dotenv').config();
 const mysql = require('mysql2');
-const token = 'SQLr0cks!';
+
+//Database configuration
+const dbConfig =   {
+	host: 'localhost',
+	user: process.env.DB_USER,
+	password: process.env.DB_PW,
+	database: process.env.DB_NAME
+};
 
 // Connect to database
-const db = mysql.createConnection(
-	{
-		host: 'localhost',
-		// Your MySQL username,
-		user: 'root',
-		// Your MySQL password
-		password: token,
-		database: 'cms'
-	},
-	console.log('Connected to the cms database.')
-).promise();
+const db = mysql.createConnection(dbConfig,
+	console.log(` +++ Connected to ${process.env.DB_NAME}`)
+);
 
 module.exports = db;
