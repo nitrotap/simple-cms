@@ -1,5 +1,3 @@
-const site = 'http://localhost:3001';
-const fetch = require('node-fetch');
 const inquirer = require('inquirer');
 const db = require('../db/connection');
 

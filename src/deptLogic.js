@@ -1,7 +1,6 @@
 const inquirer = require('inquirer');
 const db = require('../db/connection');
 
-
 async function getDepartments() {
 	const sql = 'SELECT * from department'; 
 	db.query(sql, (err, rows) => {
@@ -15,7 +14,7 @@ async function getDepartments() {
 }
 
 async function addDepartment() {
-	let deptName = await inquirer.prompt([
+	let dept = await inquirer.prompt([
 		{
 			type: 'input',
 			name: 'name',
@@ -31,15 +30,15 @@ async function addDepartment() {
 		}
 	]);
 	const sql = 'INSERT INTO department (name) VALUES (?)';
-	const params = deptName.name;	
+	const params = dept.name;	
 	db.query(sql, params, (err, rows) => {
 		if (err) {
 			console.log(err);
 			return;
 		}
-		console.log();
 	});
-	console.log(`${deptName.name} added!`);
+	console.log(`${dept.name} added!`);
+	getDepartments();
 }
 
 async function deleteDepartment() {
@@ -71,6 +70,7 @@ async function deleteDepartment() {
 		console.log();
 	});
 	console.log(`department ${dept.id} deleted!`);
+	getDepartments();
 }
 
 module.exports = {getDepartments, addDepartment, deleteDepartment};

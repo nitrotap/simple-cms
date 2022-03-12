@@ -6,11 +6,6 @@ const { addDepartment, deleteDepartment, getDepartments } = require('./src/deptL
 const { getRoles, addRole, deleteRole } = require('./src/roleLogic');
 const { getEmployees, addEmployee, deleteEmployee } = require('./src/empLogic');
 
-const {connect} = require('./db/connection');
-const { express, PORT, app } = require('./server');
-const cTable = require('console.table');
-const mysql = require('mysql2');
-
 
 
 const menuQuestions = [
