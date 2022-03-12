@@ -1,13 +1,18 @@
-const site = 'http://localhost:3001';
-const fetch = require('node-fetch');
 const inquirer = require('inquirer');
+const db = require('../db/connection');
+
 
 async function getRoles() {
-	let url = site + '/api/role';
-	let options = { method: 'GET' };
-	let b = await fetch(url, options)
-		.then(res => res.json());
-	return b.data;
+	const sql = 'SELECT * from cms_role'; 
+	db.query(sql, (err, rows) => {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		console.log();
+		console.table(rows);
+	});
+
 }
 
 async function addRole() {
@@ -51,22 +56,17 @@ async function addRole() {
 		}
 	]);
 
-	console.log(role);
+	const sql = 'INSERT INTO cms_role (title, salary, department_id) VALUES (?, ?, ?)';
+	const params = [role.title, role.salary, role.deptId];
 
-	let url = site + '/api/role';
-	let options = { 
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		}, 
-		body: JSON.stringify(role) 
-	};
-	let b = await fetch(url, options)
-		.then(res => res.json());
-		
+	db.query(sql, params, (err, rows) => {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		console.log();
+	});
 	console.log(`${role.title} added!`);
-
-	return b.data;
 }
 
 async function deleteRole() {
@@ -88,11 +88,15 @@ async function deleteRole() {
 		}
 	]);
 
-	let url = site + `/api/role/${role.id}`;
-	let options = {method: 'DELETE'};
+	const sql = 'DELETE FROM cms_role WHERE id = ?';
 
-	await fetch(url, options)
-		.catch(err => console.error('error:' + err));
+	db.query(sql, role.id, (err, rows) => {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		console.log();
+	});
 	
 	console.log(`role ${role.id} deleted!`);
 }

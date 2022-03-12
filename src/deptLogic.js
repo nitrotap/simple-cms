@@ -1,9 +1,5 @@
-const site = 'http://localhost:3001';
-const fetch = require('node-fetch');
 const inquirer = require('inquirer');
-// const db = require('../../db/connection');
 const db = require('../db/connection');
-const cTable = require('console.table');
 
 
 async function getDepartments() {
@@ -67,7 +63,6 @@ async function deleteDepartment() {
 
 	const sql = 'DELETE FROM department WHERE id = ?';
 
-	
 	db.query(sql, dept.id, (err, rows) => {
 		if (err) {
 			console.log(err);
