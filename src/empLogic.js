@@ -1,13 +1,19 @@
 const site = 'http://localhost:3001';
 const fetch = require('node-fetch');
 const inquirer = require('inquirer');
+const db = require('../db/connection');
+
 
 async function getEmployees() {
-	let url = site + '/api/emp';
-	let options = { method: 'GET' };
-	let b = await fetch(url, options)
-		.then(res => res.json());
-	return b.data;
+	const sql = 'SELECT * from employee'; 
+	db.query(sql, (err, rows) => {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		console.log();
+		console.table(rows);
+	});
 }
 
 async function addEmployee() {
@@ -63,22 +69,20 @@ async function addEmployee() {
 		}
 	]);
 
-	console.log(employee);
+	const sql = 'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)';
+	const params = [employee.firstName, employee.lastName, employee.roleId, employee.managerId];
 
-	let url = site + '/api/emp';
-	let options = { 
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		}, 
-		body: JSON.stringify(employee) 
-	};
-	let b = await fetch(url, options)
-		.then(res => res.json());
+	db.query(sql, params, (err, rows) => {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		console.log();
+	});
+
 		
 	console.log(`${employee.firstName} ${employee.lastName} added!`);
 
-	return b.data;
 }
 
 async function deleteEmployee() {
@@ -100,11 +104,16 @@ async function deleteEmployee() {
 		}
 	]);
 
-	let url = site + `/api/emp/${employee.id}`;
-	let options = {method: 'DELETE'};
+	const sql = 'DELETE FROM employee WHERE id = ?';
 
-	await fetch(url, options)
-		.catch(err => console.error('error:' + err));
+	db.query(sql, employee.id, (err, rows) => {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		console.log();
+	});
+
 	
 	console.log(`employee ${employee.id} deleted!`);
 }
