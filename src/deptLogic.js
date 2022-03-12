@@ -1,13 +1,21 @@
 const site = 'http://localhost:3001';
 const fetch = require('node-fetch');
 const inquirer = require('inquirer');
+// const db = require('../../db/connection');
+const db = require('../db/connection');
+const cTable = require('console.table');
+
 
 async function getDepartments() {
-	let url = site + '/api/dept';
-	let options = { method: 'GET' };
-	let b = await fetch(url, options)
-		.then(res => res.json());
-	return b.data;
+	const sql = 'SELECT * from department'; 
+	db.query(sql, (err, rows) => {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		console.log();
+		console.table(rows);
+	});
 }
 
 async function addDepartment() {
@@ -26,23 +34,16 @@ async function addDepartment() {
 			
 		}
 	]);
-
-	console.log(deptName.name);
-
-	let url = site + '/api/dept';
-	let options = { 
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		}, 
-		body: JSON.stringify(deptName) 
-	};
-	let b = await fetch(url, options)
-		.then(res => res.json());
-		
+	const sql = 'INSERT INTO department (name) VALUES (?)';
+	const params = deptName.name;	
+	db.query(sql, params, (err, rows) => {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		console.log();
+	});
 	console.log(`${deptName.name} added!`);
-
-	return b.data;
 }
 
 async function deleteDepartment() {
@@ -64,12 +65,16 @@ async function deleteDepartment() {
 		}
 	]);
 
-	let url = site + `/api/dept/${dept.id}`;
-	let options = {method: 'DELETE'};
+	const sql = 'DELETE FROM department WHERE id = ?';
 
-	await fetch(url, options)
-		.catch(err => console.error('error:' + err));
 	
+	db.query(sql, dept.id, (err, rows) => {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		console.log();
+	});
 	console.log(`department ${dept.id} deleted!`);
 }
 

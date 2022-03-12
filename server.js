@@ -20,12 +20,12 @@ app.use('/api', apiRoutes);
 
 
 // Start server after DB connection
-db.connect(err => {
-	if (err) throw err;
-	console.log('Database connected.');
-	app.listen(PORT, () => {
-		console.log(`Server running on port ${PORT}`);
-	});
-});
+// db.connect(err => {
+// 	if (err) throw err;
+// 	console.log('Database connected.');
+// 	app.listen(PORT, () => {
+// 		console.log(`Server running on port ${PORT}`);
+// 	});
+// });
 
 module.exports = {express, PORT, app};

@@ -1,12 +1,13 @@
 require('dotenv').config();
 
-const db = require('./db/connection');
 const inquirer = require('inquirer');
 
-const { express, PORT, app } = require('./server');
 const { addDepartment, deleteDepartment, getDepartments } = require('./src/deptLogic');
-const {getRoles, addRole, deleteRole} = require('./src/roleLogic');
-const {getEmployees, addEmployee, deleteEmployee} = require('./src/empLogic');
+const { getRoles, addRole, deleteRole } = require('./src/roleLogic');
+const { getEmployees, addEmployee, deleteEmployee } = require('./src/empLogic');
+
+const {connect} = require('./db/connection');
+const { express, PORT, app } = require('./server');
 const cTable = require('console.table');
 const mysql = require('mysql2');
 
@@ -28,7 +29,6 @@ async function getMenuOption() { // returns menu choice string
 	let response = await inquirer.prompt(menuQuestions);
 	return response.menuChoice;
 }
-
 
 async function main() {
 	let exit = true;
@@ -89,6 +89,7 @@ async function main() {
 		case 'exit': {
 			exit = false;
 			break;
+			// db.close or db.disconnect
 		}
 		default: {
 			console.log('error');
