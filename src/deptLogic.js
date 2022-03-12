@@ -2,8 +2,6 @@ const site = 'http://localhost:3001';
 const fetch = require('node-fetch');
 const inquirer = require('inquirer');
 
-
-
 async function getDepartments() {
 	let url = site + '/api/dept';
 	let options = { method: 'GET' };
