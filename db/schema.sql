@@ -13,7 +13,7 @@ CREATE TABLE cms_role (
     salary DECIMAL NOT NULL,
     department_id INTEGER(3),
     FOREIGN KEY (department_id) REFERENCES department(id) ON DELETE SET NULL
-)
+);
 
 -- CREATE TABLE employee (
 --     id INTEGER AUTO_INCREMENT PRIMARY KEY,

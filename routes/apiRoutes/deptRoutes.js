@@ -32,29 +32,6 @@ router.post('/dept', ({body}, res) => {
 	});
 });
 
-// router.delete('/dept/:id', (req, res) => {
-// 	const sql = 'DELETE FROM department WHERE id=?';
-// 	// const params = [req.params.id];
-// 	// console.log(req);
-
-// 	db.query(sql, req.params.id, (err, result) => {
-// 		if (err) {
-// 			res.statusMessage(400).json({ error: res.message });
-// 		} else if (!result.affectedRows) {
-// 			res.json({
-// 				message: 'Department not found'
-// 			});
-// 		} else {
-// 			res.json({
-// 				message: 'deleted',
-// 				changes: result.affectedRows,
-// 				id: req.params.id
-// 			});
-// 		}
-		
-// 	});
-// } );
-
 router.delete('/dept/:id', (req, res) => {
 	const sql = 'DELETE FROM department WHERE id = ?';
 
