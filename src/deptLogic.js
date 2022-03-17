@@ -8,7 +8,6 @@ async function getDepartments() {
 			console.log(err);
 			return;
 		}
-		console.log();
 		console.table(rows);
 	});
 }

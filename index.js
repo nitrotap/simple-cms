@@ -1,10 +1,12 @@
 require('dotenv').config();
 
 const inquirer = require('inquirer');
+const cTable = require('console.table');
+
 
 const { addDepartment, deleteDepartment, getDepartments } = require('./src/deptLogic');
 const { getRoles, addRole, deleteRole } = require('./src/roleLogic');
-const { getEmployees, addEmployee, deleteEmployee } = require('./src/empLogic');
+const { getEmployees, addEmployee, deleteEmployee, updateEmpRole } = require('./src/empLogic');
 
 
 
@@ -15,7 +17,7 @@ const menuQuestions = [
 		message: 'Please choose an option to continue: (Required)',
 		choices: [
 			'view all departments', 'add a department', 'delete a department',
-			'view all roles', 'add a role', 'delete a role', 
+			'view all roles', 'add a role', 'delete a role', 'update an employee role',
 			'view all employees', 'add an employee', 'delete an employee', 'exit']
 	}
 ];
@@ -32,52 +34,47 @@ async function main() {
 		switch (menuOption) {
 		// departments
 		case 'view all departments': {
-			let departmentData = await getDepartments();
-			console.table(departmentData);
+			getDepartments();
 			break;
 		}
 		case 'add a department': {
-			let departmentData = await addDepartment();
-			console.table(departmentData);
+			addDepartment();
 			break;
 		}
 		case 'delete a department': {
-			let departmentData = await deleteDepartment();
-			console.table(departmentData);
+			deleteDepartment();
 			break;
 		}
 
 		// roles
 		case 'view all roles': {
-			let roleData = await getRoles();
-			console.table(roleData);
+			getRoles();
 			break;
 		}
 		case 'add a role': {
-			let roleData = await addRole();
-			console.table(roleData);
+			addRole();
 			break;
 		}
 		case 'delete a role': {
-			let roleData = await deleteRole();
-			console.table(roleData);
+			deleteRole();
 			break;
 		}
 
 		// employee
 		case 'view all employees': {
-			let employeeData = await getEmployees();
-			console.table(employeeData);
+			getEmployees();
 			break;
 		}
 		case 'add an employee': {
-			let employeeData = await addEmployee();
-			console.table(employeeData);
+			addEmployee();
 			break;
 		}
 		case 'delete an employee': {
-			let employeeData = await deleteEmployee();
-			console.table(employeeData);
+			deleteEmployee();
+			break;
+		}
+		case 'update an employee role': {
+			updateEmpRole();
 			break;
 		}
 

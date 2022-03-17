@@ -1,11 +1,5 @@
-SELECT 
-id, 
-first_name AS "First Name",
-last_name AS "Last Name",
+SELECT
+-- cms_role.id, title, salary, department_id FROM cms_role
+title, salary FROM cms_role
 
-FROM employee
-
-JOIN cms_role 
-ON employee.role_id = cms_role.id;
-
-SELECT * FROM cms_role;
+LEFT JOIN department ON cms_role.department_id = department.id;

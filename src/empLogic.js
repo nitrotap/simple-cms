@@ -77,9 +77,45 @@ async function addEmployee() {
 		}
 		console.log();
 	});
-
-		
 	console.log(`${employee.firstName} ${employee.lastName} added!`);
+}
+
+async function updateEmpRole() {
+	let employeeData = await getEmployees();
+	console.table(employeeData);
+	let employee = await inquirer.prompt([
+		{
+			type: 'input',
+			name: 'id',
+			message: 'Please enter the ID for the employee to be updated: (Required)',
+			validate: (userInput) => {
+				if (userInput) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+			
+		}
+	]);
+
+	let role = await inquirer.prompt([
+		{
+			type: 'list',
+			name: 'newRole',
+			message: 'Please choose a new role the for employee: (Required)',
+			validate: (userInput) => {
+				if (userInput) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+	]);
+
+	const sql = 'UPDATE ';
+
 
 }
 
@@ -116,4 +152,4 @@ async function deleteEmployee() {
 	console.log(`employee ${employee.id} deleted!`);
 }
 
-module.exports = {getEmployees, addEmployee, deleteEmployee};
+module.exports = {getEmployees, addEmployee, deleteEmployee, updateEmpRole};
