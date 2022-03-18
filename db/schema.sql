@@ -12,6 +12,7 @@ CREATE TABLE cms_role (
     title VARCHAR(30) NOT NULL,
     salary DECIMAL NOT NULL,
     department_id INTEGER(3),
+    -- CONSTRAINT fk_deptId
     FOREIGN KEY (department_id) REFERENCES department(id) ON DELETE SET NULL
 );
 

@@ -34,47 +34,47 @@ async function main() {
 		switch (menuOption) {
 		// departments
 		case 'view all departments': {
-			getDepartments();
+			await getDepartments();
 			break;
 		}
 		case 'add a department': {
-			addDepartment();
+			await addDepartment();
 			break;
 		}
 		case 'delete a department': {
-			deleteDepartment();
+			await deleteDepartment();
 			break;
 		}
 
 		// roles
 		case 'view all roles': {
-			getRoles();
+			await getRoles();
 			break;
 		}
 		case 'add a role': {
-			addRole();
+			await addRole();
 			break;
 		}
 		case 'delete a role': {
-			deleteRole();
+			await deleteRole();
 			break;
 		}
 
 		// employee
 		case 'view all employees': {
-			getEmployees();
+			await getEmployees();
 			break;
 		}
 		case 'add an employee': {
-			addEmployee();
+			await addEmployee();
 			break;
 		}
 		case 'delete an employee': {
-			deleteEmployee();
+			await deleteEmployee();
 			break;
 		}
 		case 'update an employee role': {
-			updateEmpRole();
+			await updateEmpRole();
 			break;
 		}
 
