@@ -4,7 +4,19 @@ const db = require('../db/connection');
 const empRoles = ['Sales Lead', 'Salesperson', 'Lead Engineer', 'Software Engineer', 'Account Manager', 'Accountant', 'Legal Team Lead', 'Lawyer'];
 
 async function getEmployees() {
-	const sql = 'SELECT * from employee'; 
+	const sql = `
+	SELECT 
+	employee.id AS 'ID', 
+	employee.first_name AS 'First Name', 
+	employee.last_name AS 'Last Name', 
+	cms_role.title AS 'Role', 
+	m.first_name AS "Manager's First Name", 
+	m.last_name AS "Manager's Last Name"
+	FROM employee
+	JOIN cms_role
+	on cms_role.id = employee.role_id
+	INNER JOIN employee m
+	ON m.manager_id = employee.id;`; 
 	db.query(sql, (err, rows) => {
 		if (err) {
 			console.log(err);

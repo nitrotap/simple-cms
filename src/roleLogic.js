@@ -5,7 +5,10 @@ const db = require('../db/connection');
 async function getRoles() {
 	// const sql = 'SELECT * from cms_role'; 
 
-	const sql = `SELECT cms_role.id, cms_role.title, cms_role.salary, department.name AS department_name
+	const sql = `SELECT cms_role.id AS 'ID', 
+	cms_role.title AS 'Title', 
+	cms_role.salary AS 'Salary', 
+	department.name AS 'Department Name'
 	FROM cms_role
 	JOIN department 
 	ON cms_role.department_id = department.id;`;
