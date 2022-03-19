@@ -104,7 +104,7 @@ async function addEmployee() {
 		{
 			type: 'list',
 			name: 'managerId',
-			message: 'Please enter the manager id for the new employee (Required)',
+			message: 'Please choose a manager for the new employee (Required)',
 			choices: manList,
 			validate: (userInput) => {
 				if (userInput) {
@@ -129,6 +129,9 @@ async function addEmployee() {
 }
 
 async function updateEmpManager() {
+	let manList = await getManagerList();
+
+	await getEmployees();
 	let employee = await inquirer.prompt([
 		{
 			type: 'input',
@@ -148,9 +151,10 @@ async function updateEmpManager() {
 
 	let newManager = await inquirer.prompt([
 		{
-			type: 'input',
+			type: 'list',
 			name: 'managerId',
-			message: 'Please enter the new manager ID for the employee to be updated: (Required)',
+			message: 'Please choose a manager for the new employee (Required)',
+			choices: manList,
 			validate: (userInput) => {
 				if (userInput) {
 					return true;
@@ -158,7 +162,6 @@ async function updateEmpManager() {
 					return false;
 				}
 			}
-			
 		}
 	]);
 
@@ -190,25 +193,13 @@ async function updateEmpRole() {
 		}
 	]);
 
-	let roleData = await getRoles();
+	let empRoles = await getRoleList();
 	let role = await inquirer.prompt([
-		// {
-		// 	type: 'list',
-		// 	name: 'newRole',
-		// 	message: 'Please choose a new role the for employee: (Required)',
-		// 	choices: empRoles,
-		// 	validate: (userInput) => {
-		// 		if (userInput) {
-		// 			return true;
-		// 		} else {
-		// 			return false;
-		// 		}
-		// 	}
-		// },
 		{
-			type: 'input',
-			name: 'newRoleId',
-			message: 'Please enter the new role Id for the employee (Required)',
+			type: 'list',
+			name: 'roleTitle',
+			message: 'Please select a role for the new employee (Required)',
+			choices: empRoles,
 			validate: (userInput) => {
 				if (userInput) {
 					return true;
@@ -216,15 +207,15 @@ async function updateEmpRole() {
 					return false;
 				}
 			}
-		},
+		}
 	]);
 
 	const sql = 'UPDATE employee SET role_id=? WHERE id=?';
-	const params = [role.newRoleId, employee.id];
+	const params = [role.roleTitle, employee.id];
 	
 	let result = await db.query(sql, params);
 
-	console.log(`employee ${employee.id} role updated to ${role.newRoleId}!`);
+	console.log(`employee ${employee.id} role updated to ${role.roleTitle}!`);
 }
 
 async function deleteEmployee() {
