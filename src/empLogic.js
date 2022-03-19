@@ -109,6 +109,49 @@ async function addEmployee() {
 	console.log(`${employee.firstName} ${employee.lastName} added!`);
 }
 
+async function updateEmpManager() {
+	let employee = await inquirer.prompt([
+		{
+			type: 'input',
+			name: 'id',
+			message: 'Please enter the ID for the employee to be updated: (Required)',
+			validate: (userInput) => {
+				if (userInput) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+			
+		}
+	]);
+
+
+	let newManager = await inquirer.prompt([
+		{
+			type: 'input',
+			name: 'managerId',
+			message: 'Please enter the new manager ID for the employee to be updated: (Required)',
+			validate: (userInput) => {
+				if (userInput) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+			
+		}
+	]);
+
+	
+	const sql = 'UPDATE employee SET manager_id=? WHERE id=?';
+	const params = [newManager.managerId, employee.id];
+	
+	let result = await db.query(sql, params);
+
+	console.log(`employee ${employee.id} manager updated to ${newManager.managerId}!`);
+}
+
 async function updateEmpRole() {
 	let employeeData = await getEmployees();
 	console.table(employeeData);
@@ -163,8 +206,6 @@ async function updateEmpRole() {
 	let result = await db.query(sql, params);
 
 	console.log(`employee ${employee.id} role updated to ${role.newRoleId}!`);
-
-
 }
 
 async function deleteEmployee() {
@@ -193,4 +234,4 @@ async function deleteEmployee() {
 	console.log(`employee ${employee.id} deleted!`);
 }
 
-module.exports = {getEmployees, addEmployee, deleteEmployee, updateEmpRole};
+module.exports = {getEmployees, addEmployee, deleteEmployee, updateEmpRole, updateEmpManager};

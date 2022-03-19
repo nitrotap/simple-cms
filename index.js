@@ -6,7 +6,7 @@ const cTable = require('console.table');
 
 const { addDepartment, deleteDepartment, printDepartments } = require('./src/deptLogic');
 const { getRoles, addRole, deleteRole } = require('./src/roleLogic');
-const { getEmployees, addEmployee, deleteEmployee, updateEmpRole } = require('./src/empLogic');
+const { getEmployees, addEmployee, deleteEmployee, updateEmpRole, updateEmpManager } = require('./src/empLogic');
 
 
 
@@ -17,7 +17,7 @@ const menuQuestions = [
 		message: 'Please choose an option to continue: (Required)',
 		choices: [
 			'view all departments', 'add a department', 'delete a department',
-			'view all roles', 'add a role', 'delete a role', 'update an employee role',
+			'view all roles', 'add a role', 'delete a role', 'update an employee role', 'update an employee\'s manager',
 			'view all employees', 'add an employee', 'delete an employee', 'exit']
 	}
 ];
@@ -75,6 +75,10 @@ async function main() {
 		}
 		case 'update an employee role': {
 			await updateEmpRole();
+			break;
+		}
+		case 'update an employee\'s manager': {
+			await updateEmpManager();
 			break;
 		}
 
