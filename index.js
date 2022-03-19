@@ -2,6 +2,8 @@ require('dotenv').config();
 
 const inquirer = require('inquirer');
 const cTable = require('console.table');
+const db = require('./db/connection');
+
 
 
 const { addDepartment, deleteDepartment, printDepartments } = require('./src/deptLogic');
@@ -84,8 +86,8 @@ async function main() {
 
 		case 'exit': {
 			exit = false;
+			db.end();
 			break;
-			// db.close or db.disconnect
 		}
 		default: {
 			console.log('error');
