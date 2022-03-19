@@ -1,6 +1,5 @@
 const inquirer = require('inquirer');
 const db = require('../db/connection');
-const { getRoles } = require('./roleLogic');
 
 const empRoles = ['Sales Lead', 'Salesperson', 'Lead Engineer', 'Software Engineer', 'Account Manager', 'Accountant', 'Legal Team Lead', 'Lawyer'];
 
@@ -46,8 +45,8 @@ async function addEmployee() {
 		{
 			type: 'list',
 			name: 'roleTitle',
-			message: 'Please select a role for the new employee (Required)',
-			choices: empRoles,
+			message: 'Please select a role id for the new employee (Required)',
+			choices: [1, 2, 3, 4, 5, 6, 7, 8],
 			validate: (userInput) => {
 				if (userInput) {
 					return true;
@@ -71,7 +70,7 @@ async function addEmployee() {
 	]);
 
 	const sql = 'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)';
-	const params = [employee.firstName, employee.lastName, employee.roleId, employee.managerId];
+	const params = [employee.firstName, employee.lastName, employee.roleTitle, employee.managerId];
 
 	db.query(sql, params, (err, rows) => {
 		if (err) {

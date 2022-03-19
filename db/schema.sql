@@ -1,4 +1,4 @@
--- DROP TABLE IF EXISTS employee;
+DROP TABLE IF EXISTS employee;
 DROP TABLE IF EXISTS cms_role;
 DROP TABLE IF EXISTS department;
 
@@ -22,5 +22,5 @@ CREATE TABLE employee (
     last_name VARCHAR(30) NOT NULL,
     role_id INTEGER,
     manager_id INTEGER
-)
+);
 
