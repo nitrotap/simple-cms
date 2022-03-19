@@ -4,13 +4,9 @@ const inquirer = require('inquirer');
 const cTable = require('console.table');
 const db = require('./db/connection');
 
-
-
 const { addDepartment, deleteDepartment, printDepartments } = require('./src/deptLogic');
 const { getRoles, addRole, deleteRole } = require('./src/roleLogic');
 const { getEmployees, addEmployee, deleteEmployee, updateEmpRole, updateEmpManager } = require('./src/empLogic');
-
-
 
 const menuQuestions = [
 	{

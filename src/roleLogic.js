@@ -3,8 +3,6 @@ const db = require('../db/connection');
 
 
 async function getRoles() {
-	// const sql = 'SELECT * from cms_role'; 
-
 	const sql = `SELECT cms_role.id AS 'ID', 
 	cms_role.title AS 'Title', 
 	department.name AS 'Department Name',
@@ -20,8 +18,6 @@ async function getRoles() {
 }
 
 async function getDeptList() {
-	// const sql = `SELECT cms_role.title AS 'Title'
-	// FROM cms_role;`;
 	const sql = `SELECT department.id, department.name
 	FROM department;`;
 	let result = await db.query(sql);
@@ -33,10 +29,8 @@ async function getDeptList() {
 }
 
 async function addRole() {
-	// id, title, salary, department_id
-
 	let deptList = await getDeptList();
-
+	// id, title, salary, department_id
 	let role = await inquirer.prompt([
 		{
 			type: 'input',

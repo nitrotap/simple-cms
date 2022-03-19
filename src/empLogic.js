@@ -2,8 +2,6 @@ const inquirer = require('inquirer');
 const db = require('../db/connection');
 
 async function getRoleList() {
-	// const sql = `SELECT cms_role.title AS 'Title'
-	// FROM cms_role;`;
 	const sql = `SELECT cms_role.id AS 'value', 
 	cms_role.title AS 'name'
 	FROM cms_role;`;
