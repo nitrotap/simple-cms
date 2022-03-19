@@ -12,12 +12,17 @@ async function getEmployees() {
 	m.last_name AS 'Last Name', 
 	cms_role.title AS 'Role', 
 	employee.first_name AS "Manager's First Name", 
-	employee.last_name AS "Manager's Last Name"
+	employee.last_name AS "Manager's Last Name",
+	department.name AS 'Department Name',
+	cms_role.salary AS 'Salary'
 	FROM employee
-	JOIN cms_role
-	on cms_role.id = employee.role_id
 	INNER JOIN employee m
-	ON employee.id = m.manager_id;`; 
+	ON employee.id = m.manager_id
+	JOIN cms_role
+	on cms_role.id = m.role_id
+	JOIN department
+	ON department.id = cms_role.department_id
+	;`; 
 
 	let result = await db.query(sql);
 	console.log();
@@ -94,11 +99,7 @@ async function addEmployee() {
 
 	const sql = 'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)';
 
-	console.log(employee);
-
 	const params = [employee.firstName, employee.lastName, employee.roleId, employee.managerId];
-
-	
 
 	try {
 		let result = await db.query(sql, params);
@@ -155,9 +156,6 @@ async function updateEmpRole() {
 			}
 		},
 	]);
-
-	console.log(employee);
-	console.log(role);
 
 	const sql = 'UPDATE employee SET role_id=? WHERE id=?';
 	const params = [role.newRoleId, employee.id];
