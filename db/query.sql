@@ -1,4 +1,4 @@
-use cms;
+USE cms;
 
 SELECT cms_role.id AS 'ID', 
 cms_role.title AS 'Title', 
@@ -13,8 +13,7 @@ m.id AS 'ID',
 m.first_name AS 'First Name', 
 m.last_name AS 'Last Name', 
 cms_role.title AS 'Role', 
-employee.first_name AS "Manager's First Name", 
-employee.last_name AS "Manager's Last Name",
+CONCAT( employee.first_name, ' ', employee.last_name) AS "Manager's Name",
 department.name AS 'Department Name',
 cms_role.salary AS 'Salary'
 FROM employee
@@ -25,3 +24,15 @@ on cms_role.id = m.role_id
 JOIN department
 ON department.id = cms_role.department_id
 ;
+
+
+
+SELECT cms_role.id AS 'ID', 
+cms_role.title AS 'Title'
+FROM cms_role;
+
+
+SELECT employee.id, CONCAT(employee.first_name, " ", employee.last_name) AS name
+FROM employee
+JOIN cms_role ON cms_role.id = employee.role_id
+WHERE cms_role.title = 'Manager';

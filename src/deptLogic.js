@@ -56,7 +56,7 @@ async function deleteDepartment() {
 
 	const sql = 'DELETE FROM department WHERE id = ?';
 
-	let result = await db.query(sql, dept.id);
+	await db.query(sql, dept.id);
 	console.log(`department ${dept.id} deleted!`);
 	printDepartments();
 }

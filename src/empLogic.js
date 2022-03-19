@@ -2,7 +2,34 @@ const inquirer = require('inquirer');
 const db = require('../db/connection');
 const { getRoles } = require('./roleLogic');
 
-const empRoles = ['Sales Lead', 'Salesperson', 'Lead Engineer', 'Software Engineer', 'Account Manager', 'Accountant', 'Legal Team Lead', 'Lawyer'];
+async function getRoleList() {
+	// const sql = `SELECT cms_role.title AS 'Title'
+	// FROM cms_role;`;
+	const sql = `SELECT cms_role.id AS 'ID', 
+	cms_role.title AS 'Title'
+	FROM cms_role;`;
+	let result = await db.query(sql);
+
+	return result[0].map(role => ({
+		name: role.Title,
+		value: role.ID
+	}));
+}
+
+async function getManagerList() {
+	const sql = `SELECT employee.id, CONCAT(employee.first_name, " ", employee.last_name) AS name
+	FROM employee
+	JOIN cms_role ON cms_role.id = employee.role_id
+	WHERE cms_role.title = 'Manager';`;
+
+	let result = await db.query(sql);
+
+	return result[0].map(manager => ({
+		name: manager.name,
+		value: manager.id
+	}));
+
+}
 
 async function getEmployees() {
 	const sql = `
@@ -11,8 +38,7 @@ async function getEmployees() {
 	m.first_name AS 'First Name', 
 	m.last_name AS 'Last Name', 
 	cms_role.title AS 'Role', 
-	employee.first_name AS "Manager's First Name", 
-	employee.last_name AS "Manager's Last Name",
+	CONCAT( employee.first_name, ' ', employee.last_name) AS "Manager's Name",
 	department.name AS 'Department Name',
 	cms_role.salary AS 'Salary'
 	FROM employee
@@ -33,6 +59,10 @@ async function getEmployees() {
 async function addEmployee() {
 	// id, first_name, last_name, role_id, manager_id
 
+	let empRoles = await getRoleList();
+
+	let manList = await getManagerList();
+	// console.log(manList);
 	let employee = await inquirer.prompt([
 		{
 			type: 'input',
@@ -58,23 +88,11 @@ async function addEmployee() {
 				}
 			}
 		},
-		// {
-		// 	type: 'list',
-		// 	name: 'roleTitle',
-		// 	message: 'Please select a role for the new employee (Required)',
-		// 	choices: empRoles,
-		// 	validate: (userInput) => {
-		// 		if (userInput) {
-		// 			return true;
-		// 		} else {
-		// 			return false;
-		// 		}
-		// 	}
-		// },
 		{
-			type: 'input',
-			name: 'roleId',
-			message: 'Please enter a role id for the new employee (Required)',
+			type: 'list',
+			name: 'roleTitle',
+			message: 'Please select a role for the new employee (Required)',
+			choices: empRoles,
 			validate: (userInput) => {
 				if (userInput) {
 					return true;
@@ -84,9 +102,10 @@ async function addEmployee() {
 			}
 		},
 		{
-			type: 'input',
+			type: 'list',
 			name: 'managerId',
 			message: 'Please enter the manager id for the new employee (Required)',
+			choices: manList,
 			validate: (userInput) => {
 				if (userInput) {
 					return true;
@@ -99,7 +118,7 @@ async function addEmployee() {
 
 	const sql = 'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)';
 
-	const params = [employee.firstName, employee.lastName, employee.roleId, employee.managerId];
+	const params = [employee.firstName, employee.lastName, employee.roleTitle, employee.managerId];
 
 	try {
 		let result = await db.query(sql, params);
