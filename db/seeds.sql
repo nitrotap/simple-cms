@@ -10,28 +10,27 @@ INSERT INTO cms_role (title, salary, department_id)
 VALUES
 -- id, title, salary, department_id
 
-('Sales Lead'), 
-('Salesperson'), 
-('Lead Engineer'), 
-('Software Engineer'), 
-('Account Manager'), 
-('Accountant'), 
-('Legal Team Lead'), 
-('Lawyer')
-
-('Salesperson', '75000', '5'),
-('Accountant', '80000', '4'),
-('Manager', '90000', '3'),
-('Manager', '95000', '2'),
-('Manager', '85000', '1');
+('Sales Lead', '75000', '1'), 
+('Salesperson', '75000', '1'), 
+('Lead Engineer', '75000', '2'), 
+('Software Engineer', '75000', '2'), 
+('Account Manager', '75000', '3'), 
+('Accountant', '75000', '3'), 
+('Legal Team Lead', '75000', '4'), 
+('Lawyer', '75000', '4'),
+('Service Person', '55000', '5');
 
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES
-('FirstName', 'lastName', 1, 3),
-('Kartik', 'Jevaji', 1, 1),
-('Colby', 'Harris', 2, 2),
-('Ray', 'Bradbury', 3, 3);
+('William', 'Bradford', 1, 1),
+('Anne', 'Bradstreet', 2, 1),
+('Cotton', 'Mather', 3, 1),
+('William', 'Penn', 4, 1),
+('Abigail', 'Adams', 5, 1),
+('Willa', 'Cather', 6, 1),
+('Mary', 'Chase', 7, 1),
+('Jane', 'Cowl', 8, 1);
 
 
 

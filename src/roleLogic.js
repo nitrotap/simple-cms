@@ -13,14 +13,9 @@ async function getRoles() {
 	JOIN department 
 	ON cms_role.department_id = department.id;`;
 
-	db.query(sql, (err, rows) => {
-		if (err) {
-			console.log(err);
-			return;
-		}
-		console.log();
-		console.table(rows);
-	});
+	let result = await db.query(sql);
+	console.log();
+	console.table(result[0]);
 
 }
 
@@ -68,13 +63,7 @@ async function addRole() {
 	const sql = 'INSERT INTO cms_role (title, salary, department_id) VALUES (?, ?, ?)';
 	const params = [role.title, role.salary, role.deptId];
 
-	db.query(sql, params, (err, rows) => {
-		if (err) {
-			console.log(err);
-			return;
-		}
-		console.log();
-	});
+	let result = await db.query(sql, params);
 	console.log(`${role.title} added!`);
 }
 
@@ -99,14 +88,7 @@ async function deleteRole() {
 
 	const sql = 'DELETE FROM cms_role WHERE id = ?';
 
-	db.query(sql, role.id, (err, rows) => {
-		if (err) {
-			console.log(err);
-			return;
-		}
-		console.log();
-	});
-	
+	let result = await db.query(sql, role.id);
 	console.log(`role ${role.id} deleted!`);
 }
 
