@@ -19,8 +19,24 @@ async function getRoles() {
 
 }
 
+async function getDeptList() {
+	// const sql = `SELECT cms_role.title AS 'Title'
+	// FROM cms_role;`;
+	const sql = `SELECT department.id, department.name
+	FROM department;`;
+	let result = await db.query(sql);
+
+	return result[0].map(dept => ({
+		name: dept.name,
+		value: dept.id
+	}));
+}
 async function addRole() {
 	// id, title, salary, department_id
+
+	let deptList = await getDeptList();
+	console.log(deptList);
+
 	let role = await inquirer.prompt([
 		{
 			type: 'input',
@@ -47,9 +63,10 @@ async function addRole() {
 			}
 		},
 		{
-			type: 'input',
+			type: 'list',
 			name: 'deptId',
 			message: 'Please enter the department id for the new role (Required)',
+			choices: deptList,
 			validate: (userInput) => {
 				if (userInput) {
 					return true;

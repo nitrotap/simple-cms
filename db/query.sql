@@ -31,6 +31,8 @@ SELECT cms_role.id AS 'ID',
 cms_role.title AS 'Title'
 FROM cms_role;
 
+SELECT department.id, department.name
+FROM department;
 
 SELECT employee.id, CONCAT(employee.first_name, " ", employee.last_name) AS name
 FROM employee
