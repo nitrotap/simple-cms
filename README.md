@@ -22,6 +22,11 @@ A command-line application to manage an employee's database with MySQL, Node.js,
 ```npm i```   
 
 ## Usage
+```source db.sql```   
+```source schema.sql```   
+```source seeds.sql```   
+   
+   
 ```npm start```     
   
   

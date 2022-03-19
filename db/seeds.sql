@@ -10,8 +10,6 @@ INSERT INTO cms_role (title, salary, department_id)
 VALUES
 -- id, title, salary, department_id
 ('Manager', '100000', '5'),
-('Manager', '100000', '1'),
-('Manager', '100000', '3'),
 ('Sales Lead', '55000', '1'), 
 ('Salesperson', '45000', '1'), 
 ('Lead Engineer', '75000', '2'), 
