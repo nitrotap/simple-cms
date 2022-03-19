@@ -2,7 +2,9 @@ const inquirer = require('inquirer');
 const db = require('../db/connection');
 
 async function printDepartments() {
-	const sql = 'SELECT * from department'; 
+	const sql = `SELECT department.id AS 'ID', 
+	department.name AS 'Name'
+	FROM department;`; 
 	let result = await db.query(sql);
 	console.log();
 	console.table(result[0]);
@@ -27,12 +29,7 @@ async function addDepartment() {
 	const sql = 'INSERT INTO department (name) VALUES (?)';
 	const params = dept.name;	
 	let result = await db.query(sql, params);
-	console.log();
-	console.table(result[0]);
-
-
 	console.log(`${dept.name} added!`);
-	printDepartments();
 }
 
 async function deleteDepartment() {
@@ -50,7 +47,6 @@ async function deleteDepartment() {
 					return false;
 				}
 			}
-			
 		}
 	]);
 

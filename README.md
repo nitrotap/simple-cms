@@ -9,8 +9,9 @@
   ## Table of Contents   
   * [Installation](#Installation)   
   * [Usage](#Usage)   
-     
-     
+  * [Walk-through Video](#Walk-Through)
+  * [Screen Shots](#Screen-Shots)
+
   * [Questions](#Questions)    
   * [License](#License)   
 
@@ -23,9 +24,14 @@
   ## Usage
 ```npm start```     
   
-    
+  
+  ## Walk-Through
+[Link to Walk-through Video](https://drive.google.com/file/d/1rc05o01zgOtkcCbawJmfXIeAdBA_Xz0B/view)   
 
-     
+
+  ## Screen-Shots   
+<img src="./assets/images/cli-screen-shot.png" width="50%" height="50%">
+<img src="./assets/images/simple-cms-walkthrough.gif" width="50%" height="50%">
 
   ## Questions   
 

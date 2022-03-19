@@ -31,11 +31,11 @@ async function getDeptList() {
 		value: dept.id
 	}));
 }
+
 async function addRole() {
 	// id, title, salary, department_id
 
 	let deptList = await getDeptList();
-	console.log(deptList);
 
 	let role = await inquirer.prompt([
 		{

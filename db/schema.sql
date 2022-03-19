@@ -10,7 +10,7 @@ CREATE TABLE department (
 CREATE TABLE cms_role (
     id INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
     title VARCHAR(30) NOT NULL,
-    salary DECIMAL NOT NULL,
+    salary DECIMAL(13, 2) NOT NULL,
     department_id INTEGER(3),
     -- CONSTRAINT fk_deptId
     FOREIGN KEY (department_id) REFERENCES department(id) ON DELETE SET NULL
