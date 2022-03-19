@@ -1,12 +1,15 @@
 USE cms;
 
 SELECT cms_role.id AS 'ID', 
-cms_role.title AS 'Title', 
-cms_role.salary AS 'Salary', 
-department.name AS 'Department Name'
-FROM cms_role
-JOIN department 
-ON cms_role.department_id = department.id;
+	cms_role.title AS 'Title', 
+	department.name AS 'Department Name',
+	cms_role.salary AS 'Salary'
+	FROM cms_role
+	JOIN department 
+	ON cms_role.department_id = department.id
+    ORDER BY cms_role.id
+    ;
+
 
 
 SELECT 
@@ -22,8 +25,9 @@ INNER JOIN employee e
 ON employee.id = e.manager_id
 JOIN cms_role
 on cms_role.id = e.role_id
-JOIN department
+LEFT JOIN department
 ON department.id = cms_role.department_id
+ORDER BY e.id
 ;
 
 

@@ -54,7 +54,6 @@ async function deleteDepartment() {
 
 	await db.query(sql, dept.id);
 	console.log(`department ${dept.id} deleted!`);
-	printDepartments();
 }
 
 module.exports = {printDepartments, addDepartment, deleteDepartment};

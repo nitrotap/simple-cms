@@ -9,7 +9,9 @@ async function getRoles() {
 	cms_role.salary AS 'Salary'
 	FROM cms_role
 	JOIN department 
-	ON cms_role.department_id = department.id;`;
+	ON cms_role.department_id = department.id
+    ORDER BY cms_role.id
+    ;`;
 
 	let result = await db.query(sql);
 	console.log();

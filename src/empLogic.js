@@ -34,8 +34,9 @@ async function getEmployees() {
 	ON employee.id = e.manager_id
 	JOIN cms_role
 	on cms_role.id = e.role_id
-	JOIN department
+	LEFT JOIN department
 	ON department.id = cms_role.department_id
+	ORDER BY e.id
 	;`; 
 
 	let result = await db.query(sql);
