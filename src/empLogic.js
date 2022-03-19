@@ -37,10 +37,10 @@ async function getEmployees() {
 	m.id AS 'ID', 
 	m.first_name AS 'First Name', 
 	m.last_name AS 'Last Name', 
-	cms_role.title AS 'Role', 
-	CONCAT( employee.first_name, ' ', employee.last_name) AS "Manager's Name",
-	department.name AS 'Department Name',
-	cms_role.salary AS 'Salary'
+	cms_role.title AS 'Job Title', 
+	department.name AS 'Department',
+	cms_role.salary AS 'Salary',
+	CONCAT( employee.first_name, ' ', employee.last_name) AS "Manager's Name"
 	FROM employee
 	INNER JOIN employee m
 	ON employee.id = m.manager_id

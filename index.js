@@ -19,8 +19,9 @@ const menuQuestions = [
 		message: 'Please choose an option to continue: (Required)',
 		choices: [
 			'view all departments', 'add a department', 'delete a department',
-			'view all roles', 'add a role', 'delete a role', 'update an employee role', 'update an employee\'s manager',
-			'view all employees', 'add an employee', 'delete an employee', 'exit']
+			'view all roles', 'add a role', 'delete a role',
+			'view all employees', 'add an employee', 'delete an employee', 
+			'update an employee role', 'update an employee\'s manager', 'exit']
 	}
 ];
 

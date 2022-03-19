@@ -7,8 +7,8 @@ async function getRoles() {
 
 	const sql = `SELECT cms_role.id AS 'ID', 
 	cms_role.title AS 'Title', 
-	cms_role.salary AS 'Salary', 
-	department.name AS 'Department Name'
+	department.name AS 'Department Name',
+	cms_role.salary AS 'Salary'
 	FROM cms_role
 	JOIN department 
 	ON cms_role.department_id = department.id;`;
