@@ -12,6 +12,6 @@ const dbConfig = {
 // Connect to database
 const db = mysql.createConnection(dbConfig,
 	console.log(` +++ Connected to ${process.env.DB_NAME}`)
-);
+).promise();
 
 module.exports = db;

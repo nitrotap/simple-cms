@@ -9,6 +9,16 @@ VALUES
 INSERT INTO cms_role (title, salary, department_id)
 VALUES
 -- id, title, salary, department_id
+
+('Sales Lead'), 
+('Salesperson'), 
+('Lead Engineer'), 
+('Software Engineer'), 
+('Account Manager'), 
+('Accountant'), 
+('Legal Team Lead'), 
+('Lawyer')
+
 ('Salesperson', '75000', '5'),
 ('Accountant', '80000', '4'),
 ('Manager', '90000', '3'),

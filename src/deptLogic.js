@@ -1,16 +1,11 @@
 const inquirer = require('inquirer');
 const db = require('../db/connection');
 
-async function getDepartments() {
+async function printDepartments() {
 	const sql = 'SELECT * from department'; 
-	db.query(sql, (err, rows) => {
-		if (err) {
-			console.log(err);
-			return;
-		}
-		console.log();
-		console.table(rows);
-	});
+	let result = await db.query(sql);
+	console.log();
+	console.table(result[0]);
 }
 
 async function addDepartment() {
@@ -31,18 +26,17 @@ async function addDepartment() {
 	]);
 	const sql = 'INSERT INTO department (name) VALUES (?)';
 	const params = dept.name;	
-	db.query(sql, params, (err, rows) => {
-		if (err) {
-			console.log(err);
-			return;
-		}
-	});
+	let result = await db.query(sql, params);
+	console.log();
+	console.table(result[0]);
+
+
 	console.log(`${dept.name} added!`);
-	getDepartments();
+	printDepartments();
 }
 
 async function deleteDepartment() {
-	let departmentData = await getDepartments();
+	let departmentData = await printDepartments();
 	console.table(departmentData);
 	let dept = await inquirer.prompt([
 		{
@@ -62,15 +56,9 @@ async function deleteDepartment() {
 
 	const sql = 'DELETE FROM department WHERE id = ?';
 
-	db.query(sql, dept.id, (err, rows) => {
-		if (err) {
-			console.log(err);
-			return;
-		}
-		console.log();
-	});
+	let result = await db.query(sql, dept.id);
 	console.log(`department ${dept.id} deleted!`);
-	getDepartments();
+	printDepartments();
 }
 
-module.exports = {getDepartments, addDepartment, deleteDepartment};
+module.exports = {printDepartments, addDepartment, deleteDepartment};

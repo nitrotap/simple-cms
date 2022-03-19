@@ -29,6 +29,7 @@ async function getEmployees() {
 
 async function addEmployee() {
 	// id, first_name, last_name, role_id, manager_id
+
 	let employee = await inquirer.prompt([
 		{
 			type: 'input',
@@ -57,8 +58,8 @@ async function addEmployee() {
 		{
 			type: 'list',
 			name: 'roleTitle',
-			message: 'Please select a role id for the new employee (Required)',
-			choices: [1, 2, 3, 4, 5, 6, 7, 8],
+			message: 'Please select a role for the new employee (Required)',
+			choices: empRoles,
 			validate: (userInput) => {
 				if (userInput) {
 					return true;
@@ -118,6 +119,7 @@ async function updateEmpRole() {
 			type: 'list',
 			name: 'newRole',
 			message: 'Please choose a new role the for employee: (Required)',
+			choices: empRoles,
 			validate: (userInput) => {
 				if (userInput) {
 					return true;
@@ -128,7 +130,10 @@ async function updateEmpRole() {
 		}
 	]);
 
-	const sql = 'UPDATE ';
+	console.log(employee);
+	console.log(role);
+
+	const sql = 'UPDATE employee SET ';
 
 
 }

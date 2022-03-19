@@ -4,7 +4,7 @@ const inquirer = require('inquirer');
 const cTable = require('console.table');
 
 
-const { addDepartment, deleteDepartment, getDepartments } = require('./src/deptLogic');
+const { addDepartment, deleteDepartment, printDepartments } = require('./src/deptLogic');
 const { getRoles, addRole, deleteRole } = require('./src/roleLogic');
 const { getEmployees, addEmployee, deleteEmployee, updateEmpRole } = require('./src/empLogic');
 
@@ -34,7 +34,7 @@ async function main() {
 		switch (menuOption) {
 		// departments
 		case 'view all departments': {
-			await getDepartments();
+			await printDepartments();
 			break;
 		}
 		case 'add a department': {
